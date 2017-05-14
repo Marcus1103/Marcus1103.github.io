@@ -39,7 +39,7 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2017-05-14T15:08:19.000Z" itemprop="datePublished">
+      <time datetime="2017-05-14T15:28:08.000Z" itemprop="datePublished">
           2017-05-14
       </time>
     
@@ -47,13 +47,11 @@
     <h1 class="post-title">iOS持续集成</h1>
     <section class="post-content">
       <p>做app开发可能很多人还没接触过持续集成（CI）,因为在测试发布流程还没有十分完善的小规模团队会懒得搭建，而在规模较大的团队这会是第一件做的事，后面加入团队的人或许没有机会接触到jenkins搭建和维护，但会感受到持续集成能大大提高整个团队的效率，我恰巧在团队还没做CI的时候了解到并推动了团队的CI，所以第一篇文章就分享这个吧哈哈~</p>
-<p>##架设Jenkins服务器</p>
-<p>###在Mac安装配置 Jenkins<br>先使用 homebrew 安装 Jenkins<br><code>$ brew install jenkins</code>  </p>
+<h2 id="架设Jenkins服务器"><a href="#架设Jenkins服务器" class="headerlink" title="架设Jenkins服务器"></a>架设Jenkins服务器</h2><h3 id="在Mac安装配置-Jenkins"><a href="#在Mac安装配置-Jenkins" class="headerlink" title="在Mac安装配置 Jenkins"></a>在Mac安装配置 Jenkins</h3><p>先使用 homebrew 安装 Jenkins<br><code>$ brew install jenkins</code>  </p>
 <p>然后链接 launchd 配置文件<br><code>$ ln -sfv /usr/local/opt/jenkins/*.plist ~/Library/LaunchAgents</code></p>
 <p>可以更改此 plist 来进行一些自定义的配置，详细列表可以参考<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins</a></p>
 <p>如果要其他机器也可以访问，把plist里的<string>–httpListenAddress=127.0.0.1</string>删掉即可<br>修改完后，在终端执行<br><code>$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.jenkins.plist</code><br>即可启动 Jenkins<br>接着用浏览器访问 localhost:8080（默认配置），就可以看到 Jenkins 的 web 界面了</p>
-<p>###把Mac作为Jenkins Slave</p>
-<ol>
+<h3 id="把Mac作为Jenkins-Slave"><a href="#把Mac作为Jenkins-Slave" class="headerlink" title="把Mac作为Jenkins Slave"></a>把Mac作为Jenkins Slave</h3><ol>
 <li><p>系统设置新增节点</p>
 </li>
 <li><p>进入新增节点页面</p>
@@ -64,13 +62,12 @@
 </li>
 <li>可以在Node Properties配置Environment variables环境变量，通常是配置JAVAHOME</li>
 </ol>
-<p>##安装插件<br>jenkins支持很多plugin，这些plugin极大地丰富了Jenkins的功能，甚至可以自己开发一个plugin。一些功能可以不使用plugin，通过写shell或其他脚本来完成，但如果功能不复杂，使用plugin可以减少维护脚本的时间，这里列就几个iOS开发中可能会用到的plugin  </p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>jenkins支持很多plugin，这些plugin极大地丰富了Jenkins的功能，甚至可以自己开发一个plugin。一些功能可以不使用plugin，通过写shell或其他脚本来完成，但如果功能不复杂，使用plugin可以减少维护脚本的时间，这里列就几个iOS开发中可能会用到的plugin  </p>
 <p>GitHub plugin 集成git，用于拉代码，接收webhook<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin</a></p>
 <p>Xcode integration 集成xcode，用于编译和打包<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin</a>  </p>
 <p>SonarQube plugin 集成sonar，用于代码静态分析扫描<br><a href="http://docs.sonarqube.org/display/SONAR/Documentation" target="_blank" rel="external">http://docs.sonarqube.org/display/SONAR/Documentation</a></p>
-<p>##新建Job</p>
-<p>##拓展<br>自动化测试</p>
-
+<h2 id="新建Job"><a href="#新建Job" class="headerlink" title="新建Job"></a>新建Job</h2><h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>自动化测试</p>
+<h2 id="架设应用下载服务器"><a href="#架设应用下载服务器" class="headerlink" title="架设应用下载服务器"></a>架设应用下载服务器</h2>
     </section>
     <footer class="post-footer">
       <section class="author">
@@ -97,10 +94,6 @@
   <nav class="pagination" role="pagination">
     
     <span class="page-number">•</span>
-    
-    <a class="older-posts" href="/2017/05/03/hello-world/">
-        Hello World →
-    </a>
     
 </nav>
   <div id="comment" class="comments-area">
