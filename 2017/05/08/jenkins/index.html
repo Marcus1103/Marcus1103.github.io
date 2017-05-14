@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Marcus</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Marcus">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="http://opds0e5az.bkt.clouddn.com/avatar.jpeg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Marcus</h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-05-08T13:22:51.000Z" itemprop="datePublished">
+          2017-05-08
+      </time>
+    
+</span>
+    <h1 class="post-title"></h1>
+    <section class="post-content">
+      <p>#iOS持续集成<br>做app开发可能很多人还没接触过持续集成（CI）,因为在测试发布流程还没有十分完善的小规模团队会懒得搭建，而在规模较大的团队这会是第一件做的事，后面加入团队的人或许没有机会接触到jenkins搭建和维护，但会感受到持续集成能大大提高整个团队的效率，我恰巧在团队还没做CI的时候了解到并推动了团队的CI，所以第一篇文章就分享这个吧哈哈~</p>
+<p>##架设Jenkins服务器</p>
+<p>###在Mac安装配置 Jenkins<br>先使用 homebrew 安装 Jenkins<br><code>$ brew install jenkins</code>  </p>
+<p>然后链接 launchd 配置文件<br><code>$ ln -sfv /usr/local/opt/jenkins/*.plist ~/Library/LaunchAgents</code></p>
+<p>可以更改此 plist 来进行一些自定义的配置，详细列表可以参考<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins</a></p>
+<p>如果要其他机器也可以访问，把plist里的<string>–httpListenAddress=127.0.0.1</string>删掉即可<br>修改完后，在终端执行<br><code>$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.jenkins.plist</code><br>即可启动 Jenkins<br>接着用浏览器访问 localhost:8080（默认配置），就可以看到 Jenkins 的 web 界面了</p>
+<p>###把Mac作为Jenkins Slave</p>
+<ol>
+<li><p>系统设置新增节点</p>
+</li>
+<li><p>进入新增节点页面</p>
+</li>
+<li><p>配置节点</p>
+</li>
+<li><p>然后点击Credentials后面的Add按钮，在弹出框填写机器用户名密码（刚才的jenkins用户）  </p>
+</li>
+<li>可以在Node Properties配置Environment variables环境变量，通常是配置JAVAHOME</li>
+</ol>
+<p>##安装插件<br>jenkins支持很多plugin，这些plugin极大地丰富了Jenkins的功能，甚至可以自己开发一个plugin。一些功能可以不使用plugin，通过写shell或其他脚本来完成，但如果功能不复杂，使用plugin可以减少维护脚本的时间，这里列就几个iOS开发中可能会用到的plugin  </p>
+<p>GitHub plugin 集成git，用于拉代码，接收webhook<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin</a></p>
+<p>Xcode integration 集成xcode，用于编译和打包<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin</a>  </p>
+<p>SonarQube plugin 集成sonar，用于代码静态分析扫描<br><a href="http://docs.sonarqube.org/display/SONAR/Documentation" target="_blank" rel="external">http://docs.sonarqube.org/display/SONAR/Documentation</a></p>
+<p>##新建Job</p>
+<p>##拓展<br>自动化测试</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Marcus Ji</h4>
+    <p>A iOS developer in e-commerce field. Spends his time travelling the world. Likes music and badminton.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/05/08/jenkins/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/05/08/jenkins/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/05/08/jenkins/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Marcus</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>
