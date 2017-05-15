@@ -51,23 +51,26 @@
 <p>然后链接 launchd 配置文件<br><code>$ ln -sfv /usr/local/opt/jenkins/*.plist ~/Library/LaunchAgents</code></p>
 <p>可以更改此 plist 来进行一些自定义的配置，详细列表可以参考<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins</a></p>
 <p>如果要其他机器也可以访问，把plist里的<string>–httpListenAddress=127.0.0.1</string>删掉即可<br>修改完后，在终端执行<br><code>$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.jenkins.plist</code><br>即可启动 Jenkins<br>接着用浏览器访问 localhost:8080（默认配置），就可以看到 Jenkins 的 web 界面了</p>
-<h3 id="把Mac作为Jenkins-Slave"><a href="#把Mac作为Jenkins-Slave" class="headerlink" title="把Mac作为Jenkins Slave"></a>把Mac作为Jenkins Slave</h3><ol>
-<li><p>系统设置新增节点</p>
-</li>
+<h3 id="把Mac作为Jenkins-Slave"><a href="#把Mac作为Jenkins-Slave" class="headerlink" title="把Mac作为Jenkins Slave"></a>把Mac作为Jenkins Slave</h3><p>如果觉得直接用mac做jenkins服务器太奢侈，或者公司已经有jenkins服务器，只是没有搭建iOS相关服务，例如iOS工程打包就只能在macOS上执行。这时候可以用mac来做slave，只是在mac上运行制定的任务（job），而不直接用作jenkins服务器。</p>
+<ol>
+<li>系统设置新增节点<br><img src="http://opds0e5az.bkt.clouddn.com/81494863607_.pic.jpg" alt=""></li>
 <li><p>进入新增节点页面</p>
 </li>
-<li><p>配置节点</p>
+<li><p>配置节点<br><img src="http://opds0e5az.bkt.clouddn.com/91494864359_.pic.jpg" alt=""><br>每个配置右边的问号都有详细说明，请认真阅读。<br>例如# of executors，个人建议设置为2或3，以达到多个任务可以同时进行，而又不太影响多个任务同时运行的速度。<br>启动方法建议使用SSH，简单快捷。<br>在Host栏填入mac的ip，然后点击Credentials后面的Add按钮，填一下用户名和mac的开机密码<br><img src="http://opds0e5az.bkt.clouddn.com/101494864853_.pic.jpg" alt=""><br>然后在mac的系统设置-共享，打开远程登录权限即可。<br><img src="http://opds0e5az.bkt.clouddn.com/20160816155809671.jpeg" alt=""></p>
 </li>
-<li><p>然后点击Credentials后面的Add按钮，在弹出框填写机器用户名密码（刚才的jenkins用户）  </p>
+<li><p>可以在Node Properties配置Environment variables环境变量</p>
 </li>
-<li>可以在Node Properties配置Environment variables环境变量，通常是配置JAVAHOME</li>
 </ol>
-<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>jenkins支持很多plugin，这些plugin极大地丰富了Jenkins的功能，甚至可以自己开发一个plugin。一些功能可以不使用plugin，通过写shell或其他脚本来完成，但如果功能不复杂，使用plugin可以减少维护脚本的时间，这里列就几个iOS开发中可能会用到的plugin  </p>
-<p>GitHub plugin 集成git，用于拉代码，接收webhook<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin</a></p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>jenkins支持很多plugin，这些plugin极大地丰富了Jenkins的功能，甚至可以自己开发一个plugin。一些功能可以不使用plugin，通过写shell或其他脚本来完成，但如果功能不复杂，使用plugin可以减少维护脚本的时间。  </p>
+<p>在jenkins的系统管理-插件管理中，选中可选插件tab，在过滤栏输入关键字，选择想要安装的插件，点击直接安装即可。</p>
+<p><img src="http://opds0e5az.bkt.clouddn.com/111494865551_.pic.jpg" alt=""></p>
+<p>这里列就几个iOS开发中可能会用到的plugin：<br>GitHub plugin 集成git，用于拉代码，接收webhook<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin</a></p>
 <p>Xcode integration 集成xcode，用于编译和打包<br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin</a>  </p>
 <p>SonarQube plugin 集成sonar，用于代码静态分析扫描<br><a href="http://docs.sonarqube.org/display/SONAR/Documentation" target="_blank" rel="external">http://docs.sonarqube.org/display/SONAR/Documentation</a></p>
-<h2 id="新建Job"><a href="#新建Job" class="headerlink" title="新建Job"></a>新建Job</h2><h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>自动化测试</p>
-<h2 id="架设应用下载服务器"><a href="#架设应用下载服务器" class="headerlink" title="架设应用下载服务器"></a>架设应用下载服务器</h2>
+<h2 id="新建Job"><a href="#新建Job" class="headerlink" title="新建Job"></a>新建Job</h2><p>重头戏到了</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>构建前可以增加静态分析，构建时可以针对不同用途的包（如release包或debug包）进行个性化配置（用shell修改工程配置等），构建后可以增加自动化测试，性能测试等任务。这里就不一一展开了。</p>
+<h2 id="架设应用下载服务器"><a href="#架设应用下载服务器" class="headerlink" title="架设应用下载服务器"></a>架设应用下载服务器</h2><p>打完包了，总得有个地方下载包，这里介绍一下怎么架设简单的应用下载服务器。</p>
+
     </section>
     <footer class="post-footer">
       <section class="author">
